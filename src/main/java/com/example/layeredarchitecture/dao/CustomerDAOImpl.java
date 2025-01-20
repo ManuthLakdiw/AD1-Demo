@@ -43,7 +43,16 @@ public class CustomerDAOImpl {
 //        (value doesn't have or have)
 
 
+    }
 
+
+    public void updateCustomer(CustomerDTO customerDTO) throws SQLException, ClassNotFoundException {
+        Connection connection = DBConnection.getDbConnection().getConnection();
+        PreparedStatement preparedStatement = connection.prepareStatement("UPDATE Customer SET name = ?, address = ? WHERE id = ?");
+        preparedStatement.setString(1, customerDTO.getName());
+        preparedStatement.setString(2, customerDTO.getAddress());
+        preparedStatement.setString(3, customerDTO.getId());
+        preparedStatement.executeUpdate();
     }
 
 }
