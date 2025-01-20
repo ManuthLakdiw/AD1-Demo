@@ -1,5 +1,7 @@
 package com.example.layeredarchitecture.controller;
 
+import com.example.layeredarchitecture.dao.CustomerDAO;
+import com.example.layeredarchitecture.dao.CustomerDAOImpl;
 import com.example.layeredarchitecture.db.DBConnection;
 import com.example.layeredarchitecture.model.CustomerDTO;
 import com.example.layeredarchitecture.model.ItemDTO;
@@ -100,13 +102,17 @@ public class PlaceOrderFormController {
                             new Alert(Alert.AlertType.ERROR, "There is no such customer associated with the id " + newValue + "").show();
                         }
 
-                        PreparedStatement pstm = connection.prepareStatement("SELECT * FROM Customer WHERE id=?");
-                        pstm.setString(1, newValue + "");
-                        ResultSet rst = pstm.executeQuery();
-                        rst.next();
-                        CustomerDTO customerDTO = new CustomerDTO(newValue + "", rst.getString("name"), rst.getString("address"));
-
+                        CustomerDAO customerDAO = new CustomerDAOImpl();
+                        CustomerDTO customerDTO = customerDAO.searchCustomer(newValue);
                         txtCustomerName.setText(customerDTO.getName());
+
+
+//                        PreparedStatement pstm = connection.prepareStatement("SELECT * FROM Customer WHERE id=?");
+//                        pstm.setString(1, newValue + "");
+//                        ResultSet rst = pstm.executeQuery();
+//                        rst.next();
+//                        CustomerDTO customerDTO = new CustomerDTO(newValue + "", rst.getString("name"), rst.getString("address"));
+//                        txtCustomerName.setText(customerDTO.getName());
                     } catch (SQLException e) {
                         new Alert(Alert.AlertType.ERROR, "Failed to find the customer " + newValue + "" + e).show();
                     }
