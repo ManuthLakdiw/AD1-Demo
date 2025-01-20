@@ -3,10 +3,7 @@ package com.example.layeredarchitecture.dao;
 import com.example.layeredarchitecture.db.DBConnection;
 import com.example.layeredarchitecture.model.CustomerDTO;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 
 public class CustomerDAOImpl {
@@ -26,6 +23,27 @@ public class CustomerDAOImpl {
             customers.add(customerDTO); // add one customer (with details) for customer list
         }
      return customers; // return customers list
+    }
+
+    public void saveCustomer(CustomerDTO customerDTO) throws SQLException, ClassNotFoundException {
+        Connection connection = DBConnection.getDbConnection().getConnection();
+        PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO Customer (id,name, address) VALUES (?,?,?)");
+        preparedStatement.setString(1, customerDTO.getId());
+        preparedStatement.setString(2, customerDTO.getName());
+        preparedStatement.setString(3, customerDTO.getAddress());
+        preparedStatement.executeUpdate();
+
+//        executeQuary ----> for "SELECT query"   return-Resultset
+//
+//        executeUpdate ------> for "INSERT" , "UPDATE" , "DELETE" queries return-row affected count(int)
+//
+//        execute ------> for any query
+//        return- if(select) true
+//        return- if(update ,insert , delete) false
+//        (value doesn't have or have)
+
+
+
     }
 
 }
