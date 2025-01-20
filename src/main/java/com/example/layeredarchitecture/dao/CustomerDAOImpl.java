@@ -8,6 +8,7 @@ import java.util.ArrayList;
 
 public class CustomerDAOImpl implements CustomerDAO {
 
+    @Override
     public ArrayList<CustomerDTO> loadAllCustomers() throws SQLException, ClassNotFoundException {
         ArrayList<CustomerDTO> customers = new ArrayList<>(); // this is created for store many customers (customerDto)
         Connection connection = DBConnection.getDbConnection().getConnection();
@@ -25,6 +26,7 @@ public class CustomerDAOImpl implements CustomerDAO {
      return customers; // return customers list
     }
 
+    @Override
     public void saveCustomer(CustomerDTO customerDTO) throws SQLException, ClassNotFoundException {
         Connection connection = DBConnection.getDbConnection().getConnection();
         PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO Customer (id,name, address) VALUES (?,?,?)");
@@ -46,6 +48,7 @@ public class CustomerDAOImpl implements CustomerDAO {
     }
 
 
+    @Override
     public void updateCustomer(CustomerDTO customerDTO) throws SQLException, ClassNotFoundException {
         Connection connection = DBConnection.getDbConnection().getConnection();
         PreparedStatement preparedStatement = connection.prepareStatement("UPDATE Customer SET name = ?, address = ? WHERE id = ?");
@@ -55,6 +58,7 @@ public class CustomerDAOImpl implements CustomerDAO {
         preparedStatement.executeUpdate();
     }
 
+    @Override
     public boolean existCustomer(String id) throws SQLException, ClassNotFoundException {
         Connection connection = DBConnection.getDbConnection().getConnection();
         PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM customer WHERE id = ?");
@@ -66,6 +70,7 @@ public class CustomerDAOImpl implements CustomerDAO {
         return false;
     }
 
+    @Override
     public void deleteCustomer(String id) throws SQLException, ClassNotFoundException {
         Connection connection = DBConnection.getDbConnection().getConnection();
         PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM customer WHERE id = ?");
@@ -73,6 +78,7 @@ public class CustomerDAOImpl implements CustomerDAO {
         preparedStatement.executeUpdate();
     }
 
+    @Override
     public String generateNewCustomerID() throws SQLException, ClassNotFoundException {
         Connection connection = DBConnection.getDbConnection().getConnection();
         Statement statement = connection.createStatement();
