@@ -6,7 +6,7 @@ import com.example.layeredarchitecture.model.CustomerDTO;
 import java.sql.*;
 import java.util.ArrayList;
 
-public class CustomerDAOImpl {
+public class CustomerDAOImpl implements CustomerDAO {
 
     public ArrayList<CustomerDTO> loadAllCustomers() throws SQLException, ClassNotFoundException {
         ArrayList<CustomerDTO> customers = new ArrayList<>(); // this is created for store many customers (customerDto)
