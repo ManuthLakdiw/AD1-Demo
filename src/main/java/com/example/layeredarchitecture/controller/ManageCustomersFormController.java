@@ -205,7 +205,7 @@ public class ManageCustomersFormController {
 
     private String generateNewId() {
         try {
-            CustomerDAOImpl customerDAO = new CustomerDAOImpl();
+            CustomerDAO customerDAO = new CustomerDAOImpl();
             return customerDAO.generateNewCustomerID();
         } catch (SQLException e) {
             new Alert(Alert.AlertType.ERROR, "Failed to generate a new id " + e.getMessage()).show();
