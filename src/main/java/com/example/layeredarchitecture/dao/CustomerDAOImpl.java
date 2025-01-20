@@ -73,4 +73,17 @@ public class CustomerDAOImpl {
         preparedStatement.executeUpdate();
     }
 
+    public String generateNewCustomerID() throws SQLException, ClassNotFoundException {
+        Connection connection = DBConnection.getDbConnection().getConnection();
+        Statement statement = connection.createStatement();
+//        ResultSet rst = connection.createStatement().executeQuery("SELECT id FROM Customer ORDER BY id DESC LIMIT 1;");
+        ResultSet resultSet = statement.executeQuery("SELECT id FROM Customer ORDER BY id DESC LIMIT 1;");
+        if (resultSet.next()) {
+            String id = resultSet.getString(1);
+            int newCustomerId = Integer.parseInt(id.replace("C00-", "")) + 1;
+            return String.format("C00-%03d", newCustomerId);
+        }
+        return "C00-001" ;
+    }
+
 }
