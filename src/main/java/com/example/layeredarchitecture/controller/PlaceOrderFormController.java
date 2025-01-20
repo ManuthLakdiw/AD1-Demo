@@ -93,9 +93,8 @@ public class PlaceOrderFormController {
             enableOrDisablePlaceOrderButton();
 
             if (newValue != null) {
-                try {
+
                     /*Search Customer*/
-                    Connection connection = DBConnection.getDbConnection().getConnection();
                     try {
                         if (!existCustomer(newValue + "")) {
 //                            "There is no such customer associated with the id " + id
@@ -117,9 +116,7 @@ public class PlaceOrderFormController {
                         new Alert(Alert.AlertType.ERROR, "Failed to find the customer " + newValue + "" + e).show();
                     }
 
-                } catch (SQLException throwables) {
-                    throwables.printStackTrace();
-                } catch (ClassNotFoundException e) {
+                    catch (ClassNotFoundException e) {
                     e.printStackTrace();
                 }
             } else {
@@ -191,8 +188,8 @@ public class PlaceOrderFormController {
     }
 
     boolean existCustomer(String id) throws SQLException, ClassNotFoundException {
-        ItemDAO itemDAO = new ItemDAOImpl();
-        return itemDAO.existsItem(id);
+        CustomerDAO customerDAO = new CustomerDAOImpl();
+        return customerDAO.existCustomer(id);
     }
 
     public String generateNewOrderId() {

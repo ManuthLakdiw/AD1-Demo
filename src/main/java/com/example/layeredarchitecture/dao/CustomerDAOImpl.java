@@ -98,10 +98,9 @@ public class CustomerDAOImpl implements CustomerDAO {
         PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM customer WHERE id = ?");
         preparedStatement.setString(1, id);
         ResultSet resultSet = preparedStatement.executeQuery();
-        if (resultSet.next()) {
-            return new CustomerDTO(resultSet.getString(1), resultSet.getString(2), resultSet.getString(3));
-        }
-        return null;
+        resultSet.next();
+        return new CustomerDTO(id + "", resultSet.getString("name"), resultSet.getString("address"));
+
 
     }
 
