@@ -55,4 +55,15 @@ public class CustomerDAOImpl {
         preparedStatement.executeUpdate();
     }
 
+    public boolean existCustomer(String id) throws SQLException, ClassNotFoundException {
+        Connection connection = DBConnection.getDbConnection().getConnection();
+        PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM customer WHERE id = ?");
+        preparedStatement.setString(1, id);
+        ResultSet resultSet = preparedStatement.executeQuery();
+        if (resultSet.next()) {
+            return true;
+        }
+        return false;
+    }
+
 }
