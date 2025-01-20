@@ -6,8 +6,9 @@ import com.example.layeredarchitecture.model.ItemDTO;
 import java.sql.*;
 import java.util.ArrayList;
 
-public class ItemDAOImpl {
+public class ItemDAOImpl implements ItemDAO {
 
+    @Override
     public ArrayList<ItemDTO> getAllItems() throws SQLException, ClassNotFoundException {
         ArrayList<ItemDTO> items = new ArrayList<>();
 
@@ -26,6 +27,7 @@ public class ItemDAOImpl {
         return items;
     }
 
+    @Override
     public void saveItem(ItemDTO item) throws SQLException, ClassNotFoundException {
         Connection connection = DBConnection.getDbConnection().getConnection();
         PreparedStatement statement = connection.prepareStatement("INSERT INTO Item (code, description, unitPrice, qtyOnHand) VALUES (?,?,?,?)");
@@ -36,6 +38,8 @@ public class ItemDAOImpl {
         statement.executeUpdate();
     }
 
+
+    @Override
     public void updateItem(ItemDTO item) throws SQLException, ClassNotFoundException {
         Connection connection = DBConnection.getDbConnection().getConnection();
         PreparedStatement statement = connection.prepareStatement("UPDATE Item SET description=?, unitPrice=?, qtyOnHand=? WHERE code=?");
@@ -46,6 +50,8 @@ public class ItemDAOImpl {
         statement.executeUpdate();
     }
 
+
+    @Override
     public void deleteItem(String code) throws SQLException, ClassNotFoundException {
         Connection connection = DBConnection.getDbConnection().getConnection();
         PreparedStatement statement = connection.prepareStatement("DELETE FROM Item WHERE code=?");
@@ -53,6 +59,7 @@ public class ItemDAOImpl {
         statement.executeUpdate(); //  මඟින් SQL එක database එකට යවලා, එය ක්‍රියාත්මක කරනවා.
     }
 
+    @Override
     public boolean existsItem(String code) throws SQLException, ClassNotFoundException {
         Connection connection = DBConnection.getDbConnection().getConnection();
         PreparedStatement statement = connection.prepareStatement("SELECT * FROM Item WHERE code=?");
@@ -61,6 +68,8 @@ public class ItemDAOImpl {
         return resultSet.next();
     }
 
+
+    @Override
     public String generateNewItemID() throws SQLException, ClassNotFoundException {
         Connection connection = DBConnection.getDbConnection().getConnection();
         Statement statement = connection.createStatement();
